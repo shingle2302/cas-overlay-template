@@ -122,7 +122,7 @@ configurations {
 
 war {
     entryCompression = ZipEntryCompression.STORED
-    enabled = false
+    enabled = true
 }
 
 java {
@@ -276,8 +276,26 @@ dependencies {
      * plugin via the CAS bom.
      **/
     implementation "org.apereo.cas:cas-server-support-rest"
+    implementation "org.apereo.cas:cas-server-support-palantir"
+    implementation "org.apereo.cas:cas-server-support-json-service-registry"
+    implementation "org.apereo.cas:cas-server-support-redis-service-registry"
+//    implementation "org.apereo.cas:cas-server-support-jpa-service-registry"
+//    implementation "org.apereo.cas:cas-server-support-jpa-hibernate"
+    implementation "org.postgresql:postgresql:42.7.1"
+    implementation "org.apereo.cas:cas-server-support-redis-ticket-registry"
+    implementation "org.apereo.cas:cas-server-support-account-mgmt"
+    implementation "org.apereo.cas:cas-server-support-account-mgmt-api"
+    implementation "org.apereo.cas:cas-server-support-pm-webflow"
+    implementation "org.apereo.cas:cas-server-support-pm-jdbc"
+    implementation "org.apereo.cas:cas-server-support-jdbc"
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.apereo.cas:cas-server-support-token-tickets"
+    implementation "org.apereo.cas:cas-server-support-token-authentication"
+    implementation "org.apereo.cas:cas-server-support-rest"
+//    implementation "org.apereo.cas:cas-server-support-session-redis"
+    implementation "org.apereo.cas:cas-server-support-swagger"
 
-    
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

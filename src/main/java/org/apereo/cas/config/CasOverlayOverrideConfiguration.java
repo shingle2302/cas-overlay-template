@@ -1,17 +1,21 @@
 package org.apereo.cas.config;
 
-//import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
-//import org.apereo.cas.configuration.CasConfigurationProperties;
+import org.apereo.cas.acct.provision.AccountRegistrationProvisionerConfigurer;
+import org.apereo.cas.configuration.CasConfigurationProperties;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+
 
 @AutoConfiguration
-//@EnableConfigurationProperties(CasConfigurationProperties.class)
+@EnableConfigurationProperties(CasConfigurationProperties.class)
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+@EnableWebSecurity
 public class CasOverlayOverrideConfiguration {
 
     /*
@@ -20,4 +24,12 @@ public class CasOverlayOverrideConfiguration {
         ...
     }
      */
+
+
+    @Bean
+    public AccountRegistrationProvisionerConfigurer customProvisioningConfigurer(JdbcTemplate jdbcTemplate) {
+        return () -> new CustomAccountRegistrationProvisioner(jdbcTemplate);
+    }
+
+
 }

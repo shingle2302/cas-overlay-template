@@ -1,3 +1,148 @@
 # Application properties that need to be
 # embedded within the web application can be included here
 
+logging:
+  level:
+    org.apereo.cas: TRACE
+    org.springframework.jdbc: DEBUG
+    root: info
+
+spring:
+  security:
+    user:
+      password: Mellon
+      name: casuser
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: jang675953@163.com
+    password: *
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+cas:
+  jdbc:
+    show-sql: true
+    gen-ddl: true
+  service-registry:
+    core:
+      init-from-json: true
+    json:
+      location: classpath:services
+    jpa:
+      enabled: false
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      driver-class: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/cas-server
+      user: casuser
+      password: Mellon
+      ddl-auto: update
+    redis:
+      host: localhost
+      port: 6379
+  ticket:
+    registry:
+      redis:
+        host: localhost
+        port: 6379
+        timeout: 1000
+    st:
+      time-to-kill-in-seconds: PT60S
+  tgc:
+    crypto:
+      encryption:
+        key: otYjUV2MUzohOO40s2veRIb1eEF0IlEXQmYxI5gR4Qo
+      signing:
+        key: _Dsuy9sknbteOpLfHHCobR2IKt507kpIvEZCKfH6IanLPii08-KJyZyqCPV1ITEtSPJs9ULSYYRPTJ5Kk6xOug
+  webflow:
+    crypto:
+      encryption:
+        key: t-ScwrtpaICX7fM1-w2-jA
+      signing:
+        key: qAy2sZoekYXc_pPrHKvEw7izLsYnD_tdoYACHqagmpHhGddhIktOXqDyhdxKdzixQvlmKS2Y78AtTsa_9Z1oCw
+  account-registration:
+    core:
+      crypto:
+        encryption:
+          key: OvjTgiodYJgJXbvPxhgQPsqr44FBDjyKVs9HPlzy9io
+        signing:
+          key: 7iHaZfbX9pSes394jKmKVWyNle0vny206p3opjuR3elE4rIynx1YwefkXTmyl8inDGTYFG55CkYYuRtrIFMRuw
+      password-policy-pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,10}
+    mail:
+      from: jang675953@163.com
+      subject: Account Registration
+      html: true
+      text: |
+          <html>
+          <body>
+          <p>尊敬的用户，您好！</p>
+          <p>您的邮箱为：${username}，请点击下面的链接来验证您的邮箱：</p>
+          <p><a href="${url}">${url}</a></p>
+          <p>如果您没有在本站注册过，请忽略此邮件。</p>
+          <p>若您有任何问题，请联系管理员。</p>
+      attribute-name: email
+  authn:
+    pm:
+      jdbc:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        driver-class: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/cas-server
+        user: casuser
+        password: Mellon
+        ddl-auto: update
+        password-encoder:
+          type: NONE
+        sql-get-security-questions: select * from pm_table_questions where username=?
+        sql-find-user: select * from pm_table_accounts where username=?
+        sql-change-password: update pm_table_accounts set password=? where username=?
+        sql-delete-security-questions: delete from pm_table_questions where username=?
+        sql-update-security-questions: insert into pm_table_questions (username, question, answer) values (?, ?, ?)
+        autocommit: true
+      core:
+        enabled: true
+        auto-login: true
+        password-policy-character-set: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!%&*$#@|
+      history:
+        core:
+          enabled: true
+      reset:
+        crypto:
+          encryption:
+            key: OIbNdzBjaa6oh3kY5A9ebu54DcFjgcJKBdtflj7P9KA
+          signing:
+            key: OME7MGTNWLTzGJHvndO4wtoh_sedW0DWA3_KQlWz2UYh-OsvirsiPOc8orDY2yavTxi6n8DSsrY2w0L2M-q-Ew
+
+    jdbc:
+      query[0]:
+        driver-class: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/cas-server
+        user: casuser
+        password: Mellon
+        sql: SELECT * FROM pm_table_accounts WHERE username=:username AND password=:password
+        password-encoder:
+          type: NONE
+        field-password: password
+      bind[0]:
+        driver-class: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/cas-server
+        user: casuser
+        password: Mellon
+        password-encoder:
+          type: NONE
+      search[0]:
+        driver-class: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/cas-server
+        user: casuser
+        password: Mellon
+        password-encoder:
+          type: NONE
+        field-password: password
+        field-user: username
+
+
+CasFeatureModule:
+  AccountManagement:
+    enabled: true
