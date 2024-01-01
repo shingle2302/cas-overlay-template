@@ -26,5 +26,41 @@
       ],
       "status": "TRUE"
     }
-  }
+  },
+  "properties": {
+    "@class": "java.util.HashMap",
+    "jwtAsServiceTicket": {
+      "@class": "org.apereo.cas.services.DefaultRegisteredServiceProperty",
+      "values": [
+        "java.util.HashSet",
+        [
+          "true"
+        ]
+      ]
+    }
+  },
+  "supportedProtocols": [
+    "java.util.HashSet",
+    [
+      "CAS30"
+    ]
+  ],
+  "expirationPolicy": {
+    "@class": "org.apereo.cas.services.DefaultRegisteredServiceExpirationPolicy",
+    "deleteWhenExpired": true,
+    "notifyWhenDeleted": false,
+    "notifyWhenExpired": false,
+    "expirationDate": "2024-12-31"
+  },
+  "contacts": [
+    "java.util.ArrayList", [{
+      "@class": "org.apereo.cas.services.DefaultRegisteredServiceContact",
+      "name": "shingle2302",
+      "email": "shingle2302@qq.com",
+      "phone": "123-456-7890",
+      "department": "IT",
+      "type": "ADMIN"
+    }
+    ]
+  ]
 }

@@ -29,7 +29,8 @@ cas:
     gen-ddl: true
   service-registry:
     core:
-      init-from-json: true
+      init-from-json: false
+      init-default-services: true
     json:
       location: classpath:services
     jpa:
@@ -125,6 +126,13 @@ cas:
         password-encoder:
           type: NONE
         field-password: password
+        principal-attribute-list:
+          - username
+          - password
+          - email
+          - phone
+          - firstname
+          - lastname
       bind[0]:
         driver-class: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/cas-server
@@ -132,6 +140,13 @@ cas:
         password: Mellon
         password-encoder:
           type: NONE
+        principal-attribute-list:
+          - username
+          - password
+          - email
+          - phone
+          - firstname
+          - lastname
       search[0]:
         driver-class: org.postgresql.Driver
         url: jdbc:postgresql://localhost:5432/cas-server
@@ -141,8 +156,20 @@ cas:
           type: NONE
         field-password: password
         field-user: username
+        principal-attribute-list:
+          - username
+          - password
+          - email
+          - phone
+          - firstname
+          - lastname
 
 
 CasFeatureModule:
   AccountManagement:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

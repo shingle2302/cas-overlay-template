@@ -261,6 +261,7 @@ dependencies {
      **/
     implementation "org.apereo.cas:cas-server-core-api-configuration-model"
     implementation "org.apereo.cas:cas-server-webapp-init"
+    implementation "org.apereo.cas:cas-server-core"
 
     if (project.hasProperty("appServer")) {
         implementation "org.apereo.cas:cas-server-webapp-init${project.appServer}"
@@ -291,8 +292,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.apereo.cas:cas-server-support-token-tickets"
     implementation "org.apereo.cas:cas-server-support-token-authentication"
-    implementation "org.apereo.cas:cas-server-support-rest"
-//    implementation "org.apereo.cas:cas-server-support-session-redis"
+    implementation "org.apereo.cas:cas-server-support-token-webflow"
+    implementation "org.apereo.cas:cas-server-support-validation"
+    implementation "org.apereo.cas:cas-server-support-rest-authentication"
     implementation "org.apereo.cas:cas-server-support-swagger"
 
 
